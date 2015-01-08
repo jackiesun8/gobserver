@@ -27,10 +27,7 @@ func Test(t *testing.T) {
 		}
 	}
 
-	publisher := Publisher{
-		Name:      "PCodeChange",
-		Observers: map[string]Observer{},
-	}
+	publisher := NewPublisher("TestPublisher")
 	testObserver := TestObserver{}
 	testObserver2 := TestObserver{}
 

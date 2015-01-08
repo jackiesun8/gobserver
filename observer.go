@@ -37,7 +37,7 @@ func GenerateIdFromTimestamp() string {
 }
 
 func NewPublisher(name string) *Publisher {
-	publisher := Publisher{Name: name}
+	publisher := &Publisher{Name: name}
 	publisher.Observers = map[string]Observer{}
 	return publisher
 }
