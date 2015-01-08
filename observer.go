@@ -35,3 +35,9 @@ func (publisher *Publisher) Publish(value interface{}) {
 func GenerateIdFromTimestamp() string {
 	return fmt.Sprintf("%x_%x", int32(time.Now().Unix()), rand.Intn(256))
 }
+
+func NewPublisher(name string) *Publisher {
+	publisher := Publisher{Name: name}
+	publisher.Observers = map[string]Observer{}
+	return publisher
+}
