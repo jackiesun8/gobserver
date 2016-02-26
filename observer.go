@@ -28,7 +28,7 @@ func (publisher *Publisher) Unsubscribe(subscriptionId string) {
 
 func (publisher *Publisher) Publish(value interface{}) {
 	for _, obs := range publisher.Observers {
-		go obs.Notify(value)
+		obs.Notify(value)
 	}
 }
 
