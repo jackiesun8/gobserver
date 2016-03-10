@@ -1,9 +1,7 @@
 package observer
 
 import (
-	"fmt"
-	"math/rand"
-	"time"
+	"github.com/satori/go.uuid"
 )
 
 type Observer interface {
@@ -15,11 +13,15 @@ type Publisher struct {
 	Observers map[string]Observer
 }
 
-func (publisher *Publisher) Subscribe(observer Observer) string {
-	// genereate Id
-	subscriptionId := GenerateIdFromTimestamp()
+func (publisher *Publisher) Subscribe(observer Observer) (subscriptionId string, err error) {
+	var b []byte
+	b, err = uuid.NewV4().MarshalText()
+	if err != nil {
+		return
+	}
+	subscriptionId = string(b)
 	publisher.Observers[subscriptionId] = observer
-	return subscriptionId
+	return
 }
 
 func (publisher *Publisher) Unsubscribe(subscriptionId string) {
@@ -30,10 +32,6 @@ func (publisher *Publisher) Publish(value interface{}) {
 	for _, obs := range publisher.Observers {
 		obs.Notify(value)
 	}
-}
-
-func GenerateIdFromTimestamp() string {
-	return fmt.Sprintf("%x_%x", int32(time.Now().Unix()), rand.Intn(256))
 }
 
 func NewPublisher(name string) *Publisher {

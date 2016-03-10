@@ -31,8 +31,8 @@ func Test(t *testing.T) {
 	testObserver := TestObserver{}
 	testObserver2 := TestObserver{}
 
-	testObserver.SubscriptionId = publisher.Subscribe(testObserver)
-	testObserver2.SubscriptionId = publisher.Subscribe(testObserver2)
+	testObserver.SubscriptionId, _ = publisher.Subscribe(testObserver)
+	testObserver2.SubscriptionId, _ = publisher.Subscribe(testObserver2)
 
 	publisher.Unsubscribe(testObserver2.SubscriptionId)
 	publisher.Publish("test")
